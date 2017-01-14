@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mobility project by CB and JG</title>
+		<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css"/> 
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    </head>
+
+    <body>
+    	<div class="navbar navbar-default navbar-fixed-top">
+      		<div class="container">
+        		<div class="navbar-header">
+          			<a href="#" class="navbar-brand not-active"><b>Mobility Project</b> by Clément Bérard and Jamil Ghazi</a>
+        		</div>
+        
+        		<div class="navbar-collapse collapse" id="navbar-main">
+					<ul class="nav navbar-nav navbar-right">
+            			<li style="margin-top=20px;"><a href="#" class="not-active" ;>M2 ICONE - 2016/2017</a></li>
+            			<li><a href="#" class="not-active"> <img src="@{'/public/images/ulr.png'}" width="25" height="25"/> </a></li>
+            			<li><a href="more">More about the project</a></li>
+                  <li><a href="search"><img src="@{'/public/images/search.png'}" width="25" height="25"/></a></li>
+                  <li><a href="map"><img src="@{'/public/images/map.png'}" width="25" height="25"/></a></li>
+          			</ul>
+          		</div>
+      		</div>
+    	</div>
+    	<br><br><br>
+    	<div class="container">
+    		<div class="page-header" id="banner">
+        		<div class="row">
+          			<div class="col-lg-12 col-md-10 col-sm-4">
+            			<h1 class="textAlignCenter">Welcome </h1><br>
+            			<p class="lead textAlignCenter">This application was created with <i>Play!</i> 
+            				Framework and allows to recover your contacts from Instagram and Facebook.</p>
+            			<p class="lead textAlignCenter">Please choose one of the two buttons below in order to see your contacts. A connection to your account will be required.</p>
+            			<p class="lead textAlignCenter">To learn more about this project, especially the technologies used, please follow this <a href="more" class="is-active">link</a>.</p>
+            		</div>
+          		</div>
+          	</div>
+        </div><br><br><br>
+
+
+        <div class="container">
+        		<div class="row">
+        			 <div class="col-lg-2 col-md-1 col-sm-4 ">
+        			 </div>
+          			<div class="col-lg-3 col-md-10 col-sm-4 ">
+            			        <a href="https://api.instagram.com/oauth/authorize/?client_id=f3d30e62a988444e9c53b26e05b0e5cf&redirect_uri=http://projetmobilite.com:9001/instagram&response_type=code&scope=follower_list" class="btn btn-primary btn-lg button">My Instagram contacts</a>
+
+            		</div>
+          			<div class="col-lg-2 col-md-1 col-sm-4 ">
+          				
+        			</div>
+        			<div class="col-lg-3 col-md-1 col-sm-4 ">
+        				        <a href="facebook" class="btn btn-primary btn-lg button" >My Facebook contacts</a>
+
+        			</div>
+        			<div class="col-lg-2 col-md-1 col-sm-4 ">
+        				
+        			</div>
+          	</div>
+        </div>	
+
+    </body>
+</html>

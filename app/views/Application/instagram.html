@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mobility project by CB and JG</title>
+		<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css"/> 
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    </head>
+
+    <body>
+    	<div class="navbar navbar-default navbar-fixed-top">
+      		<div class="container">
+        		<div class="navbar-header">
+          			<a href="/" class="navbar-brand"><b>Mobility Project</b> by Clément Bérard and Jamil Ghazi</a>
+        		</div>
+        
+        		<div class="navbar-collapse collapse" id="navbar-main">
+					<ul class="nav navbar-nav navbar-right">
+            			<li><a href="#" class="not-active">M2 ICONE - 2016/2017</a></li>
+            			<li><a href="#" class="not-active"> <img src="@{'/public/images/ulr.png'}" width="25" height="25"/> </a></li>
+            			<li><a href="more">More about the project</a></li>
+                  <li><a href="search"><img src="@{'/public/images/search.png'}" width="25" height="25"/></a></li>
+                  <li><a href="map"><img src="@{'/public/images/map.png'}" width="25" height="25"/></a></li>
+          			</ul>
+          		</div>
+      		</div>
+    	</div>
+
+      <div class="container container-page" >
+
+        #{if myData}
+        <div class="alert alert-success" style="margin-top : 20px; text-align:center;">
+              %{
+                full_name = "${myData.get('data').get('full_name')}";
+                full_name = full_name.replace('"', ' ');
+                out.print('<b>Success !</b> You are connected as <b>'+ full_name+ '</b> on Instagram.');
+                }%
+            </div>
+
+      <div class="page-header">
+        <h1>My Instagram profil<img style="height: 35px; width:35px; margin-left:20px;" src="@{'/public/images/instagram.png'}"></h1>
+
+            <div class="row todo-item" style="height: 105px; margin:auto; margin-bottom:50px;">
+
+            
+
+            <div class="container-fluid vertical-center">
+                        <div class="col-md-2">
+                            <div class="media">
+                                <div class="media-body">
+                                   %{
+                                      image_link = "${myData.get('data').get('profile_picture')}";
+                                      image_link  = image_link .replace('"', ' ');
+                                      out.print('<img style="float: left; height: 75px; width:75px;" src='+image_link +'/>');
+                                }%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="margin-top:15px;">
+                          %{
+                              full_name = "${myData.get('data').get('full_name')}";
+                              full_name = full_name.replace('"', ' ');
+                              out.print('Full name : '+full_name);
+                          }%
+                          <br/>
+                        %{
+                              user_name = "${myData.get('data').get('username')}";
+                              user_name = user_name.replace('"', ' ');
+                              out.print('User name : '+user_name);
+                          }%
+                        </div>
+                        <div class="col-md-5" style="margin-top: 5px;">
+                          %{
+                              nb_follows = "${myData.get('data').get('counts').get('follows')}";
+                              nb_follows = nb_follows.replace('"', ' ');
+                              out.print('Follows : '+nb_follows);
+                          }%
+                          <br/>
+                          %{
+                              nb_followed_by = "${myData.get('data').get('counts').get('followed_by')}";
+                              nb_followed_by = nb_followed_by.replace('"', ' ');
+                              out.print('Followed : '+nb_followed_by);
+                          }%
+                          <br/>
+                          %{
+                              nb_media = "${myData.get('data').get('counts').get('media')}";
+                              nb_media = nb_media.replace('"', ' ');
+                              out.print('Medias : '+nb_media);
+                          }%
+                        </div>
+                    </div>
+            </div>
+
+      </div>
+          <h1>My Instagram followers<img style="height: 35px; width:35px; margin-left:20px;" src="@{'/public/images/instagram.png'}"></h1>
+          #{if myFollow}
+                #{list items:myFollow.get("data"), as:'_user_instagram'}
+                  <div class="row todo-item" style="height: 75px; margin:auto; margin-bottom:15px;">
+                      <div class="container-fluid vertical-center">
+                        <div class="col-md-2">
+                            <div class="media">
+                                <div class="media-body">
+                                   %{
+                                      image_link = "${_user_instagram.get('profile_picture')}";
+                                      image_link  = image_link .replace('"', ' ');
+                                      out.print('<img style="float: left; height: 50px; width:50px;" src='+image_link +'/>');
+                                }%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="margin-top:15px;">
+                          %{
+                              full_name = "${_user_instagram.get('full_name')}";
+                              full_name = full_name.replace('"', ' ');
+                              out.print('Full name : '+full_name);
+                          }%
+                        </div>
+                        <div class="col-md-5" style="margin-top:15px;">
+                          %{
+                              user_name = "${_user_instagram.get('username')}";
+                              user_name = user_name.replace('"', ' ');
+                              out.print('User name : '+user_name);
+                          }%
+                        </div>
+                      </div>
+                    </div>
+              #{/list}
+          #{/if}
+        #{/if}
+        #{else}
+            <a style="display:block; width: 50%; margin:auto; margin-top: 200px; " class="btn btn-primary btn-lg button" href="https://api.instagram.com/oauth/authorize/?client_id=6d984a758e8c403582ba3e1bc2bf9e14&redirect_uri=http://projetmobilite.com:9001/instagram&response_type=code&scope=follower_list">Connect to your Instagram here</a>
+          #{/else}
+
+
+      </div>
+
+
+
+    </body>
+</html>

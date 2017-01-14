@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mobility project by CB and JG</title>
+		<link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css"/> 
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    </head>
+
+    <body>
+    	<div class="navbar navbar-default navbar-fixed-top">
+      		<div class="container">
+        		<div class="navbar-header">
+          			<a href="/" class="navbar-brand"><b>Mobility Project</b> by Clément Bérard and Jamil Ghazi</a>
+        		</div>
+        
+        		<div class="navbar-collapse collapse" id="navbar-main">
+					<ul class="nav navbar-nav navbar-right">
+            			<li><a href="#" class="not-active">M2 ICONE - 2016/2017</a></li>
+            			<li><a href="#" class="not-active"> <img src="@{'/public/images/ulr.png'}" width="25" height="25"/> </a></li>
+            			<li><a href="more">More about the project</a></li>
+                  <li><a href="search"><img src="@{'/public/images/search.png'}" width="25" height="25"/></a></li>
+          			</ul>
+          		</div>
+      		</div>
+    	</div>
+
+      <div class="container container-page">
+          #{if me}
+            <div class="alert alert-success" style="margin-top : 20px; text-align:center;">
+              %{
+                  name = "${me.get('name')}";
+                  name = name.replace('"', ' ');
+                  out.print('<b>Success !</b> You are connected as <b>'+ name+ '</b> on Facebook.');
+                }%
+            </div>
+          #{/if}
+          #{else}
+            <a style="display:block; width: 50%; margin:auto; margin-top: 200px; " class="btn btn-primary btn-lg button" href="@{auth()}">Connect to your Facebook here</a>
+          #{/else}
+
+          
+
+          #{if me}
+          <h1>You have ${friends_number.get('summary').get('total_count')} friends on Facebook <img style="height: 35px; width:35px; margin-left:10px;" src="@{'/public/images/facebook.png'}"></h1>
+              #{list items:friends.get("data"), as:'_test'}
+                <div class="row todo-item" style="height: 75px; margin:auto; margin-bottom:25px;">
+                      <div class="container-fluid vertical-center">
+                        <div class="col-md-2">
+                            <div class="media">
+                                <div class="media-body">
+                                   %{
+                                      image_link = "${_test.get('picture').get('data').get('url')}";
+                                      image_link  = image_link .replace('"', ' ');
+                                      out.print('<img style="float: left; height: 50px; width:50px;" src='+image_link +'/>');
+                                }%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="margin-top:15px;">
+                          %{
+                              full_name = "${_test.get('name')}";
+                              full_name = full_name.replace('"', ' ');
+                              out.print('Full name : '+full_name);
+                          }%
+                        </div>
+                        <div class="col-md-5" style="margin-top:15px;">
+                          
+                        </div>
+                      </div>
+                    </div>
+              #{/list}
+      #{/if}
+      </div>
+    </body>
+</html>

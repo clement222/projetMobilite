@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mobility project by CB and JG</title>
+    <link rel="stylesheet" href="@{'/public/stylesheets/main.css'}" type="text/css"/> 
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    </head>
+
+    <body>
+
+    <script>
+      function showMaps () {
+
+        var longitudes_elts = document.getElementsByName("longitude");
+        var latitudes_elts  = document.getElementsByName("latitude");
+
+        for (i = 0; i < 2; i++){
+          createMarker(latitudes_elts[i].value, longitudes_elts[i].value);
+        }
+      }
+
+      function myMap() {
+
+        var mapOptions = {
+              center: new google.maps.LatLng(46.5, 1),
+              zoom: 5,
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+          var longitudes_elts = document.getElementsByName("longitude");
+          var latitudes_elts  = document.getElementsByName("latitude");
+          var names_elts      = document.getElementsByName("name_user");
+
+          for (i = 0; i < longitudes_elts.length; i++){
+            console.log(parseFloat(longitudes_elts[i].value));
+            var myLatLng = {lat: parseFloat(latitudes_elts[i].value), lng: parseFloat(longitudes_elts[i].value)};
+            //var myLatLng = {lat: 46.54, lng: 0.20};
+            var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: names_elts[i].value
+          })
+        }
+        
+      }
+
+    </script>
+
+     #{list items:friends.get("hits").get("hits"), as:'_test'}
+     %{
+        longitude = "${_test.get('_source').get('longitude')}";
+        longitude = longitude.replace('"', ' ');
+        out.print('<input type="hidden" name="longitude" value="'+longitude+ '"/>');
+      }%
+
+      %{
+        latitude = "${_test.get('_source').get('latitude')}";
+        latitude = latitude.replace('"', ' ');
+        out.print('<input type="hidden" name="latitude" value="'+ latitude + '"/>');
+      }%
+
+      %{
+        name = "${_test.get('_source').get('name')}";
+        name = name.replace('"', ' ');
+        out.print('<input type="hidden" name="name_user" value="'+ name + '"/>');
+      }%
+    #{/list}
+
+      <div class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand"><b>Mobility Project</b> by Clément Bérard and Jamil Ghazi</a>
+            </div>
+        
+            <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#" class="not-active">M2 ICONE - 2016/2017</a></li>
+                  <li><a href="#" class="not-active"> <img src="@{'/public/images/ulr.png'}" width="25" height="25"/> </a></li>
+                  <li><a href="more">More about the project</a></li>
+                  <li><a href="search"><img src="@{'/public/images/search.png'}" width="25" height="25"/></a></li>
+                  <li><a href="map"><img src="@{'/public/images/map.png'}" width="25" height="25"/></a></li>
+                </ul>
+              </div>
+          </div>
+      </div>
+      <br><br><br>
+      <div class="container">
+        <div class="page-header" id="banner">
+            <div class="row">
+               <div class="col-lg-0 col-md-1 col-sm-4">
+               </div>
+                <div class="col-lg-12 col-md-10 col-sm-4">
+                  <h1 class="textAlignCenter">My friends' map</h1><br>
+                  <p class="lead textAlignCenter">The following map displays your friends' localisation, using Google Map.</p>
+                </div>
+                <div class="col-lg-0 col-md-1 col-sm-4">
+              </div>
+              </div>
+            </div>
+      </div>
+
+      <div class="container">
+        <div class="row" style="margin-top: 40px;">
+          <div class="col-lg-2 col-md-4 col-sm-4 "></div>
+          <div class="col-lg-8 col-md-4 col-sm-4 ">
+            <div id="map" style="width:100%;height:350px">My map will go here</div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-4 "></div>
+        </div>
+
+        
+      </div>
+    </body>
+</html>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTmYmYIVSmen-xKZZInuJaPlQcLedH6Rw&callback=myMap"></script>
